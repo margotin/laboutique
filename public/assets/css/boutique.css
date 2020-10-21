@@ -1,0 +1,94 @@
+body {
+  position: relative;
+  min-height: 100vh;
+}
+
+.navbar_item_custom,
+.navbar_item_custom a {
+  color: #fff;
+}
+
+.footer-custom {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #dfeaff;
+  padding-top: 25px;
+}
+
+.product-item {
+  margin-top: 50px;
+}
+
+.product-item h5 {
+  text-transform: uppercase;
+  font-size: 15px;
+  margin-bottom: 1px;
+}
+
+.product-container {
+  margin-bottom: 150px;
+}
+
+.product-subtitle {
+  font-size: 14px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.product-price {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.product-page-price {
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.block-small {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.no-style-hover a:hover {
+  text-decoration: none;
+}
+
+.form-check {
+  background-color: #f4f8ff;
+  padding: 20px 65px;
+  margin-top: 7px;
+}
+
+.col-form-label {
+  font-weight: bold;
+}
+
+.order-summary {
+  background-color: #f4f8ff;
+  margin-top: 17px;
+  padding: 20px;
+}
+
+.update-state {
+  margin-right: 20px;
+}
+
+.account-item {
+  background-color: #f1f2f6;
+  padding: 70px 50px;
+}
+
+.account-item a {
+  text-transform: uppercase;
+  font-size: 13px;
+  color: #4b6584;
+  font-weight: bold;
+}
+
+.account-item a:hover {
+  color: #778ca3;
+  text-decoration: none;
+}

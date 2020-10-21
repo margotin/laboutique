@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Mes commandes
+{% endblock %}
+
+{% block content %}
+	<h1>Mes commandes</h1>
+	<a href="{{ path('account') }}">Retour</a>
+
+	{% if orders|length is same as(0) %}
+		<hr>
+		<p>Vous n'avez aucune commande d'enregistrée.</p>
+	{% else %}
+		<table class="table mt-4">
+			<thead>
+				<tr>
+					<th scope="col">Numéro commande</th>
+					<th scope="col">Statut</th>
+					<th scope="col">Payée le</th>
+					<th scope="col" >Produit(s)</th>
+					<th scope="col" colspan="2">Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for order in orders %}				
+					<tr>
+						<td>{{order.reference}}</td>						
+						<td>
+							{% if order.state == 1 %}							
+								Payée
+							{% elseif order.state == 2 %}
+								Préparation en cours
+							{% elseif order.state == 3 %}
+								Livraison en cours					
+							{% endif %}
+						</td>
+						<td>{{order.createdAt |date('d-m-Y')}}</td>
+						<td class="text-left">{{order.orderDetails|length}}</td>
+						<td>{{((order.carrierPrice + order.getTotal) / 100)|number_format(2, ',', '.', ' ')}} &euro;</td>
+						<td class="text-right"><a href="{{ path('account_order_show', {'reference': order.reference}) }}">Détail de votre commande</a></td>
+					</tr>
+				{% endfor %}
+
+
+			</tbody>
+		</table>
+	{% endif %}
+
+
+{% endblock %}

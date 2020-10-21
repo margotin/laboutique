@@ -1,12 +1,124 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
-</html>
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<title>
+			{% block title %}La Boutique Française - 100% Made in France
+			{% endblock %}
+		</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="{{ asset('assets/css/bootstrap.min.css') }} " rel="stylesheet">
+		{% block javascript %} {% endblock %}
+		<style>
+			.bd-placeholder-img {
+				font-size: 1.125rem;
+				text-anchor: middle;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+
+			@media(min-width: 768px) {
+				.bd-placeholder-img-lg {
+					font-size: 3.5rem;
+				}
+			}
+		</style>
+		<!-- Custom styles for this template -->
+		<link href="{{ asset('assets/css/carousel.css') }}" rel="stylesheet">
+		<link rel="stylesheet" href="{{ asset('assets/css/boutique.css') }}">
+
+	</head>
+	<body>
+		<header>
+			<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+				<a class="navbar-brand" href="{{ path('home') }}">La boutique Française</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarCollapse">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item active">
+							<a class="nav-link" href="{{ path('products') }}">Nos produits</a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link" href="#">Qui sommes-nous ?</a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link" href="{{ path('contact') }}">Contact</a>
+						</li>
+					</ul>
+					<div class="navbar_item_custom">
+						{% if app.user %}
+							<a href="{{ path('account') }}">Mon compte
+								<small>({{app.user.firstname | capitalize }})</small>
+							</a>
+							|
+							<a href="{{ path('app_logout') }}">Deconnexion</a>
+
+						{% else %}
+							<a href="{{ path('app_login') }}">Connexion</a>
+							|
+							<a href="{{ path('register') }}">Inscription</a>
+
+						{% endif %}
+					</div>
+					<a href="{{ path('cart') }}" class="ml-1"><img src="{{ asset('/assets/img/shopping-cart.png')}}" alt="mon panier" height="20"></a>
+				</div>
+			</nav>
+			{% if block('carousel') is defined %}
+
+				<div id="myCarousel" class="carousel slide" data-ride="carousel">
+					<ol class="carousel-indicators">
+					{% for key, header in headers %}
+						<li data-target="#myCarousel" data-slide-to="{{key}}" {% if key == 0 %}class="active"{% endif %}></li>
+					{% endfor %}
+					</ol>
+					<div class="carousel-inner">
+					{% for key,header in headers %}						
+							<div class="carousel-item  {% if key == 0 %}active{% endif %}" style="background: url('/uploads/{{header.illustration}}');background-size: cover;background-position: center;">
+								<div class="container">
+									<div class="carousel-caption text-left">
+										<h1>{{header.title}}</h1>
+										<p>{{header.content}}<p>
+											<a class="btn btn-lg btn-info" href="{{header.btnUrl}}" role="button">{{header.btnTitle}}</a>
+										</p>
+									</div>
+								</div>
+							</div>
+						<a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					{% endfor %}
+				</div>
+			{% endif %}
+		</header>
+
+		<main role="main">
+
+			<div class="container marketing {% if block('carousel') is not defined %}mt-5{% endif %} product-container">
+				{% block content %}{% endblock %}
+			</div>
+				
+			<footer class="footer-custom">
+				<p>&copy; 2017-2020 La Boutique Française<br>
+					<small>La boutique 100% Made in France<br>
+						<a href="#">Privacy</a>	&middot;<a href="#">Terms</a>
+					</small>
+				</p>
+			</footer>
+		</main>
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="{{ asset('assets/js/bootstrap.bundle.js') }} "></script>
+	</body>
+	{% block script %}{% endblock %}
+	</html>
