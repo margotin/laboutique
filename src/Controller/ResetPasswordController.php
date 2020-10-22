@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ResetPasswordController extends AbstractController
@@ -44,12 +45,12 @@ class ResetPasswordController extends AbstractController
                 $this->entityManager->flush();
 
                 $content = sprintf(
-                    "Bonjour %s,<br> Afin de réinialiser votre mot de passe, merci de bien vouloir cliquer sur le lien suivant :<br> <a href='%s'>Réinitialiser votre mot de passe</a>",
+                    "Bonjour %s,<br> Afin de réinitialiser votre mot de passe, merci de bien vouloir cliquer sur le lien suivant :<br> <a href='%s'>Réinitialiser votre mot de passe</a> <br>Ce lien est valide <strong>30 minutes.</strong>",
                     $user->getFirstName(),
-                    $this->generateUrl('reset_password', ['token' => $resetPassword->getToken()])
+                    $this->generateUrl('reset_password', ['token' => $resetPassword->getToken()], UrlGeneratorInterface::ABSOLUTE_URL)
                 );
                 (new Mail())->send($user->getEmail(), sprintf('%s %s', $user->getFirstName(), $user->getLastName()), 'Réinialiser votre mot de passe', $content);
-                $this->addFlash("notice", "Un email vient de vous être envoyé !");
+                $this->addFlash("notice", "Un email vous a été envoyé !");
             } else {
                 $this->addFlash("notice", "Cette adresse email n'existe pas !");
             }

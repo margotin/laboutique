@@ -15,16 +15,15 @@ class HeaderCrudController extends AbstractCrudController
         return Header::class;
     }
 
-    
+
     public function configureFields(string $pageName): iterable
     {
-        return [            
+        return [
             TextField::new('title', 'Titre du Header'),
-            TextareaField::new('content','Contenu du header'),
-            TextField::new('btnTitle','Titre du bouton'),
-            TextField::new('btnUrl','URL de destination du bouton'),            
-            ImageField::new('illustration')->setBasePath('uploads/')->setFormTypeOptions(['mapped'=>false, 'required'=>false])
+            TextareaField::new('content', 'Contenu du header'),
+            TextField::new('btnTitle', 'Titre du bouton'),
+            TextField::new('btnUrl', 'URL de destination du bouton'),
+            ImageField::new('illustration')->setBasePath('uploads/')->setFormTypeOptions(['mapped' => false, 'required' => false])
         ];
     }
-    
 }

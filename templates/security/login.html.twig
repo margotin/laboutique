@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Se connecter - La Boutique Française - 100% Made in France {% endblock %}
+{% block title %} Se connecter | {{ parent() }} {% endblock %}
 
 {% block content %}
 <div class="block-small">
@@ -47,7 +47,7 @@
             Se connecter
         </button>
         <hr>
-        <p><a href="{{ path('forgetted_password') }}">Mot de passe oublié ?</a><br>
+        <p><a href="{{ path('forgetted_password') }}">Mot de passe oublié</a> ?<br>
         Créer un <a href="{{ path('register') }}">compte ?</a></p>
     </form>
 </div>

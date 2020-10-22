@@ -2,15 +2,16 @@
 
 namespace App\Controller;
 
+use Stripe\Stripe;
 use App\Classe\Cart;
 use App\Entity\Order;
 use App\Entity\Product;
-use Doctrine\ORM\EntityManagerInterface;
-use Stripe\Stripe;
 use Stripe\Checkout\Session;
+use Symfony\Component\Dotenv\Dotenv;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class StripeController extends AbstractController
 {
@@ -20,7 +21,8 @@ class StripeController extends AbstractController
     public function index(Cart $cart, $reference, EntityManagerInterface $em)
     {
         $productsForStripe = [];
-        $YOUR_DOMAIN = 'http://localhost:8000';
+        (new Dotenv())->bootEnv(dirname(__DIR__).'/../.env');
+        $DOMAIN = $_ENV['DOMAIN'];
 
         $order = $em->getRepository(Order::class)->findOneByReference($reference);
 
@@ -36,7 +38,7 @@ class StripeController extends AbstractController
                     'unit_amount' => $product->getPrice(),
                     'product_data' => [
                         'name' => $product->getProduct(),
-                        'images' => [sprintf('%s/uploads/%s', $YOUR_DOMAIN, $em->getRepository(Product::class)->findOneByName($product->getProduct())->getIllustration())],
+                        'images' => [sprintf('%s/uploads/%s', $DOMAIN, $em->getRepository(Product::class)->findOneByName($product->getProduct())->getIllustration())],
                     ],
                 ],
                 'quantity' => $product->getQuantity(),
@@ -61,8 +63,8 @@ class StripeController extends AbstractController
             'payment_method_types' => ['card'],
             'line_items' => [$productsForStripe],
             'mode' => 'payment',
-            'success_url' => $YOUR_DOMAIN . '/commande/merci/{CHECKOUT_SESSION_ID}',
-            'cancel_url' => $YOUR_DOMAIN . '/commande/erreur/{CHECKOUT_SESSION_ID}',
+            'success_url' => $DOMAIN . '/commande/merci/{CHECKOUT_SESSION_ID}',
+            'cancel_url' => $DOMAIN . '/commande/erreur/{CHECKOUT_SESSION_ID}',
         ]);
 
         $order->setStripeSessionID($checkout_session->id);

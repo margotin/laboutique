@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{product.name}}
+	{{product.name}} | {{ parent() }}
 {% endblock %}
 
 {% block content %}
 
 	<div class="row">
 		<div class="col-md-5">
-			<img src="/uploads/{{product.illustration}}" alt="{{ product.name}}" class="img-fluid">
+			<img src="{{ asset('/uploads/' ~ product.illustration) }}" alt="{{ product.name}}" class="img-fluid">
 		</div>
 		<div class="col-md-7 my-auto">
 			<h3>{{product.name}}</h3>

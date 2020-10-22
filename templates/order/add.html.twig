@@ -4,7 +4,7 @@
 	<script src="https://js.stripe.com/v3/"></script>
 {% endblock %}
 
-{% block title %}Paiement de ma commande
+{% block title %}Paiement de ma commande | {{ parent() }}
 {% endblock %}
 
 {% block content %}
@@ -44,7 +44,7 @@
 				{% for key, product in cart %}
 					<div class="row {% if key > 0 %}mt-2{% endif %}">
 						<div class="col-2">
-							<img src="/uploads/{{product.product.illustration}}" alt="{{product.product.name}}" height="75">
+							<img src="{{ asset('/uploads/' ~ product.product.illustration) }}" alt="{{product.product.name}}" height="75">
 						</div>
 						<div class="col-8 my-auto">
 							{{product.product.name}}<br>

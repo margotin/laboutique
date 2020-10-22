@@ -13,7 +13,7 @@ body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: #dfeaff;
+  background-color: #dfe6e9;
   padding-top: 25px;
 }
 
@@ -69,7 +69,7 @@ body {
 .order-summary {
   background-color: #f4f8ff;
   margin-top: 17px;
-  padding: 20px;
+  padding: 16px;
 }
 
 .update-state {

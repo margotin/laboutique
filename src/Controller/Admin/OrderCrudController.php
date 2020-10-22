@@ -48,7 +48,12 @@ class OrderCrudController extends AbstractCrudController
 
         return $actions->add('index', 'detail')
             ->add('detail', $updatePreparation)
-            ->add('detail', $updateDelivery);
+            ->add('detail', $updateDelivery)
+            ->remove(Crud::PAGE_DETAIL, Action::EDIT)
+            ->remove(Crud::PAGE_DETAIL, Action::DELETE)
+            ->remove(Crud::PAGE_INDEX, Action::NEW)
+            ->remove(Crud::PAGE_INDEX, Action::EDIT)
+            ->remove(Crud::PAGE_INDEX, Action::DELETE);
     }
 
     public function updatePreparation(AdminContext $adminContext)
@@ -67,12 +72,12 @@ class OrderCrudController extends AbstractCrudController
             // Notification email ?
         } else if ($order->getState() !== 2) {
             $this->addFlash('notice', sprintf(
-                "<span style='background-color:#ff3838; color:#fff'>La commande <strong>%s</strong> devra avoir le status \"Payée\" afin de pouvoir la passer au status \"Préparation en cours\"<span>",
+                "<span style='background-color:#ff3838; color:#000'>La commande <strong>%s</strong> devra avoir le status \"Payée\" afin de pouvoir la passer au status \"Préparation en cours\"<span>",
                 $order->getReference()
             ));
         } else {
             $this->addFlash('notice', sprintf(
-                "<span style='background-color:#ff3838; color:#fff'>La commande <strong>%s</strong> est déjà au status \"Préparation en cours\"<span>",
+                "<span style='background-color:#ff3838; color:#000'>La commande <strong>%s</strong> est déjà au status \"Préparation en cours\"<span>",
                 $order->getReference()
             ));
         }
@@ -100,12 +105,12 @@ class OrderCrudController extends AbstractCrudController
             // Notification email ?
         } else if ($order->getState() !== 3) {
             $this->addFlash('notice', sprintf(
-                "<span style='background-color:#ff3838; color:#fff'>La commande <strong>%s</strong> devra avoir le status \"Préparation en cours\" afin de pouvoir la passer au status \"Livraison en cours\"<span>",
+                "<span style='background-color:#ff3838; color:#000'>La commande <strong>%s</strong> devra avoir le status \"Préparation en cours\" afin de pouvoir la passer au status \"Livraison en cours\"<span>",
                 $order->getReference()
             ));
         } else {
             $this->addFlash('notice', sprintf(
-                "<span style='background-color:#ff3838; color:#fff'>La commande <strong>%s</strong> est au status \"Livraison en cours\"<span>",
+                "<span style='background-color:#ff3838; color:#000'>La commande <strong>%s</strong> est au status \"Livraison en cours\"<span>",
                 $order->getReference()
             ));
         }
@@ -130,7 +135,7 @@ class OrderCrudController extends AbstractCrudController
             IdField::new('id'),
             DateTimeField::new('createdAt', 'créée le'),
             TextField::new('user.fullname', 'Utilisateur'),
-            TextEditorField::new('delivery','Adresse de livraison')->onlyOnDetail(),
+            TextEditorField::new('delivery', 'Adresse de livraison')->onlyOnDetail(),
             MoneyField::new('total')->setCurrency('EUR'),
             TextField::new('carrierName', 'Transporteur'),
             MoneyField::new('carrierPrice', 'Frais de port')->setCurrency('EUR'),

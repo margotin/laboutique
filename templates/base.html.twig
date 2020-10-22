@@ -3,10 +3,11 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="">
+		<meta name="description" content="**FACTICE** Site réalisé avec la formation de Mikael Houdoux (https://fr.tuto.com/symfony/creation-site-ecommerce,152791.html)">
+		 <meta name="author" content="Mathieu Margotin">
+		<meta name="robots" content="noindex, nofollow">
 		<title>
-			{% block title %}La Boutique Française - 100% Made in France
-			{% endblock %}
+			{% block title %}La Boutique Française - 100% Made in France{% endblock %}
 		</title>
 
 		<!-- Bootstrap core CSS -->
@@ -44,10 +45,7 @@
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item active">
 							<a class="nav-link" href="{{ path('products') }}">Nos produits</a>
-						</li>
-						<li class="nav-item active">
-							<a class="nav-link" href="#">Qui sommes-nous ?</a>
-						</li>
+						</li>						
 						<li class="nav-item active">
 							<a class="nav-link" href="{{ path('contact') }}">Contact</a>
 						</li>
@@ -80,7 +78,7 @@
 					</ol>
 					<div class="carousel-inner">
 					{% for key,header in headers %}						
-							<div class="carousel-item  {% if key == 0 %}active{% endif %}" style="background: url('/uploads/{{header.illustration}}');background-size: cover;background-position: center;">
+							<div class="carousel-item  {% if key == 0 %}active{% endif %}" style="background: url({{ asset('/uploads/' ~ header.illustration) }});background-size: cover;background-position: center;">
 								<div class="container">
 									<div class="carousel-caption text-left">
 										<h1>{{header.title}}</h1>
@@ -112,7 +110,7 @@
 			<footer class="footer-custom">
 				<p>&copy; 2017-2020 La Boutique Française<br>
 					<small>La boutique 100% Made in France<br>
-						<a href="#">Privacy</a>	&middot;<a href="#">Terms</a>
+						<a href="#">Privacy</a> &middot; <a href="#">Terms</a>
 					</small>
 				</p>
 			</footer>

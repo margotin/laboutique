@@ -57,17 +57,17 @@ class OrderController extends AbstractController
 
             $carrier = $form->get('carriers')->getData();
             $delivery = $form->get('addresses')->getData();
-            $delivery_content = sprintf(
-                '%s %s <br> %s %s <br> %s <br> %s %s <br> %s',
-                $delivery->getFirstName(),
-                $delivery->getLastname(),
-                $delivery->getPhone(),
-                $delivery->getCompany() ? sprintf('<br>%s', $delivery->getCompany()) : '',
-                $delivery->getAddress(),
-                $delivery->getPostal(),
-                $delivery->getCity(),
-                $delivery->getCountry()
-            );
+            // $delivery_content = sprintf(
+            //     '%s %s <br> %s %s <br> %s <br> %s %s <br> %s',
+            //     $delivery->getFirstName(),
+            //     $delivery->getLastname(),
+            //     $delivery->getPhone(),
+            //     $delivery->getCompany() ? sprintf('<br>%s', $delivery->getCompany()) : '',
+            //     $delivery->getAddress(),
+            //     $delivery->getPostal(),
+            //     $delivery->getCity(),
+            //     $delivery->getCountry()
+            // );
 
             $delivery_address = sprintf(
                 '%s %s <br> %s <br> %s %s',
@@ -84,7 +84,7 @@ class OrderController extends AbstractController
                 ->setCreatedAt($dayDate)
                 ->setCarrierName($carrier->getName())
                 ->setCarrierPrice($carrier->getPrice())
-                ->setDelivery($delivery_content)
+                ->setDelivery($delivery_address)
                 ->setState(0);
 
             $this->entityManager->persist($order);

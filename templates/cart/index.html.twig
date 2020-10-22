@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon panier
+{% block title %}Mon panier | {{ parent() }}
 {% endblock %}
 
 {% block content %}
 	<h1>Mon panier</h1>
-	<p>Retrouver l'ensemble des produits que vous avez ajouté à votre panier</p>
+	<p>
+        Retrouver l'ensemble des produits que vous avez ajouté à votre panier <br>
+         {% if cart|length > 0 %}<a href="{{ path('products') }}">Continuer mes achats</a>{% endif %}
+    </p>
+    
 
     {% if cart|length > 0 %}
     
@@ -24,7 +28,7 @@
                 {% for product in cart %}
                     <tr>
                         <td>
-                            <img src="/uploads/{{product.product.illustration}}" alt="{{product.product.name}}" height="75">
+                            <img src="{{ asset('/uploads/' ~ product.product.illustration) }}" alt="{{product.product.name}}" height="75">
                         </td>
                         <td>
                             {{product.product.name}}<br>
@@ -58,7 +62,7 @@
             <br>
             <b>Total de mon panier : {{ total | number_format(2, ',', '.')}} &euro;</b>
             <br>
-            <a href="{{ path('order') }}" class="btn btn-success mt-2">Valider mon panier</a>
+            <a href="{{ path('order') }}" class="btn btn-success mt-2">Valider mon panier</a>            
         </div>
     {% else %}
         <hr>
