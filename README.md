@@ -7,4 +7,4 @@ https://fr.tuto.com/symfony/creation-site-ecommerce,152791.html
 Version Symfony utilisée : v5.1.7  
 
 Pour tester l'application :   
-https://la-boutique-française.mathieumargotin.fr
+https://la-boutique-francaise.mathieumargotin.fr
